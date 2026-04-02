@@ -1,17 +1,19 @@
-
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
+import Home from './pages/Home'
+import Transactions from './pages/Transactions'
+import Layout from './Layout'
 
 function App() {
-
-
   return (
-    <>
-    <div className='bg-black text-cyan-50 h-[100vh] w-full'>
-        <h1>sahul</h1>
-    </div>
-
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="transactions" element={<Transactions />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
