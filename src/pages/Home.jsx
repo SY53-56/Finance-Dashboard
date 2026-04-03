@@ -2,7 +2,7 @@ import React from 'react'
 import AsideBar from '../components/AsideBar'
 import Box from '../components/DashboardCards'
 import DashboardCards from '../components/DashboardCards'
-import LineChart from '../components/LinerChart'
+import LineChart from '../components/LineChart'
 import Header from '../components/Header'
 import TransactionsTable from '../components/TransactionsTable'
 import PieChartBox from '../components/pieChart'
@@ -14,7 +14,7 @@ export default function Home() {
    <DashboardCards/>
    
    </div>
-  <div>
+  <div className='flex gap-10'>
      <LineChart/>
      <PieChartBox/>
   </div>
