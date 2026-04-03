@@ -9,11 +9,12 @@ import {
 } from "recharts";
 import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 function LineChartBox() {
   const { transactions } = useContext(AppContext);
   const [view, setView] = useState("expense");
-
+const {theme} = useContext(ThemeContext)
   console.log("transitionsw",transactions)
   // ✅ Filter
   const filteredTransactions = transactions.filter((item) =>
@@ -35,7 +36,7 @@ function LineChartBox() {
   ).sort((a, b) => a.name.localeCompare(b.name)); // Sort by date
 
   return (
- <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg w-full h-80">
+<div className={`${theme === "light" ? "bg-gray-100 text-gray-900" : "bg-gray-800 text-white"} p-6 rounded-2xl shadow-xl w-full h-80`}>
       {/* Header + Buttons */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold dark:text-white">
@@ -70,17 +71,17 @@ function LineChartBox() {
       {/* Chart */}
       <ResponsiveContainer width="100%" height="70%">
         <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
+          <CartesianGrid strokeDasharray="3 3" stroke={theme === "light" ? "#e5e7eb" : "#374151"}  />
           <XAxis
             dataKey="name"
-            stroke="#6b7280"
+           stroke={theme === "light" ? "#374151" : "#d1d5db"}
             fontSize={12}
             tickFormatter={(value) => {
               const date = new Date(value + '-01');
               return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
             }}
           />
-          <YAxis stroke="#6b7280" fontSize={12} />
+         <YAxis stroke={theme === "light" ? "#374151" : "#d1d5db"} />
           <Tooltip
             contentStyle={{
               backgroundColor: 'rgba(255, 255, 255, 0.95)',

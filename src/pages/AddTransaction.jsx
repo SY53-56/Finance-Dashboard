@@ -33,12 +33,12 @@ const navigate =useNavigate()
       type: "expense",
       date: "",
     });
-    
+
   navigate("/")
   };
 
   return (
-   <main>
+   <main className="w-full justify-center items-center flex h-[100vh]">
      <div className="w-full max-w-xl mx-auto bg-white dark:bg-gray-800 p-5 sm:p-6 rounded-2xl shadow-lg">
       
       {/* Title */}

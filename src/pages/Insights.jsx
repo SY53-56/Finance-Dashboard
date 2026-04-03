@@ -6,8 +6,10 @@ function InsightsPage() {
   const { transactions } = useContext(AppContext);
 
   // 👉 Filter current month (Feb example)
+  const today = new Date()
+const currentMonth = today.toISOString().slice(0,7)
   const febData = transactions.filter((item) =>
-    item.date.startsWith("2026-03")
+    item.date.startsWith(currentMonth)
   );
   
 console.log(transactions)

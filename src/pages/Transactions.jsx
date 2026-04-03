@@ -52,7 +52,7 @@ const handleSearch = useMemo(
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
-                {searchData.map((t) => (
+                { searchData.lenght ===0? <p>there are no data</p> :searchData.map((t) => (
                   <tr key={t.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">
                       {new Date(t.date).toLocaleDateString('en-US', {
