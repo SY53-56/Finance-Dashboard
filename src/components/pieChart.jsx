@@ -9,7 +9,8 @@ function PieChartBox() {
 
   // ✅ Filter transactions based on view
   const filteredTransactions = transactions.filter(item => item.type === view);
-
+ console.log("transitionsw pie",transactions)
+  console.log("transitionsw filter",filteredTransactions)
   const data = Object.values(
     filteredTransactions.reduce((acc, item) => {
       if (!acc[item.category]) {

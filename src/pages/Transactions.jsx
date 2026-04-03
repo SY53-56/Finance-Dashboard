@@ -1,14 +1,43 @@
-import React, { useContext } from 'react'
+import React,  { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import Header from '../components/Header'
-
+import { useState } from 'react'
+import { debounce } from '../components/debounce'
+import { useMemo } from "react";
 export default function Transactions() {
   const { transactions } = useContext(AppContext)
+ const [search  , setSearch] = useState("")
 
+const searchData = transactions.filter((item) =>
+  item.category.toLowerCase().includes(search.toLowerCase()) ||
+  item.type.toLowerCase().includes(search.toLowerCase()) ||
+  item.date.includes(search)
+);
+ 
+
+
+const handleSearch = useMemo(
+  () =>
+    debounce((value) => {
+      setSearch(value);
+    }, 300),
+  []
+);
   return (
     <div className='px-4 md:px-10 py-6 md:py-10'>
       <Header />
       <div className="mt-6 md:mt-8">
+        <div>
+    <input
+        type="text"
+        placeholder="Search by category..."
+        className="w-full text-white sm:w-1/3 p-2 border rounded mb-4"
+        value={search}
+        name='text'
+        onChange={(e) => handleSearch(e.target.value)}
+      />
+
+        </div>
         <h1 className="text-2xl font-bold mb-6 dark:text-white">All Transactions</h1>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
@@ -23,7 +52,7 @@ export default function Transactions() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
-                {transactions.map((t) => (
+                {searchData.map((t) => (
                   <tr key={t.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">
                       {new Date(t.date).toLocaleDateString('en-US', {

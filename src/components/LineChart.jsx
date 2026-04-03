@@ -14,6 +14,7 @@ function LineChartBox() {
   const { transactions } = useContext(AppContext);
   const [view, setView] = useState("expense");
 
+  console.log("transitionsw",transactions)
   // ✅ Filter
   const filteredTransactions = transactions.filter((item) =>
     item.type === view

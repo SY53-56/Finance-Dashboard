@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext";
 
 function TransactionsTable() {
   const { transactions } = useContext(AppContext);
-
+console.log("transition", transactions)
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg mt-6">
       <h2 className="mb-6 text-xl font-bold dark:text-white">Recent Transactions</h2>

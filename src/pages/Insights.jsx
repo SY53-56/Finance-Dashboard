@@ -1,50 +1,127 @@
-function Insights() {
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import Header from "../components/Header";
+
+function InsightsPage() {
+  const { transactions } = useContext(AppContext);
+
+  // 👉 Filter current month (Feb example)
+  const febData = transactions.filter((item) =>
+    item.date.startsWith("2026-03")
+  );
+  
+console.log(transactions)
+  const expense = febData
+    .filter((item) => item.type === "expense")
+    .reduce((acc, item) => acc + item.amount, 0);
+console.log( "expense",expense)
+  const income = febData
+    .filter((item) => item.type === "income")
+    .reduce((acc, item) => acc + item.amount, 0);
+console.log( "income",income)
+  const savings = income - expense;
+
+  // 👉 Highest category
+  const highestCategory = Object.values(
+    febData
+      .filter((item) => item.type === "expense")
+      .reduce((acc, item) => {
+        if (!acc[item.category]) {
+          acc[item.category] = { name: item.category, value: 0 };
+        }
+        acc[item.category].value += item.amount;
+        return acc;
+      }, {})
+  ).sort((a, b) => b.value - a.value)[0];
+
+  const warning = expense > income;
+
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 mt-6">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-4 sm:p-6 lg:p-8">
       
-      {/* Title */}
-      <h2 className="text-3xl font-bold text-white  sm:text-2xl lg:text-4xl mb-4">
-        Insights
-      </h2>
+      {/* Header */}
+      <Header />
 
-      {/* Grid Layout */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Page Title */}
+      <h1 className="text-2xl sm:text-3xl font-bold mt-4 mb-6 dark:text-white">
+        Insights Overview
+      </h1>
 
-        {/* Card 1 */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md">
-          <h3 className="text-gray-500 text-xl">Highest Spending</h3>
-          <p className="text-lg font-bold mt-2">Shopping</p>
-          <p className="text-red-500 text-sm">₹4300</p>
+      {/* Top Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <div className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow">
+          <p className="text-gray-500 text-sm">Income</p>
+          <h2 className="text-xl font-bold text-green-500 mt-2">
+            ₹{income}
+          </h2>
         </div>
 
-        {/* Card 2 */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md">
-          <h3 className="text-gray-500 text-xl">Monthly Summary</h3>
-          <p className="text-sm mt-2">Feb: +₹4300</p>
-          <p className="text-sm">Mar: +₹4500</p>
+        <div className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow">
+          <p className="text-gray-500 text-sm">Expense</p>
+          <h2 className="text-xl font-bold text-red-500 mt-2">
+            ₹{expense}
+          </h2>
         </div>
 
-        {/* Card 3 */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md">
-          <h3 className="text-gray-500 text-xl">Savings</h3>
-          <p className="text-lg font-bold text-green-500 mt-2">
-            ₹4300
+        <div className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow">
+          <p className="text-gray-500 text-sm">Savings</p>
+          <h2 className="text-xl font-bold text-blue-500 mt-2">
+            ₹{savings}
+          </h2>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow">
+          <p className="text-gray-500 text-sm">Top Category</p>
+          <h2 className="text-lg font-bold mt-2">
+            {highestCategory?.name || "N/A"}
+          </h2>
+        </div>
+
+      </div>
+
+      {/* Detailed Insights */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+
+        {/* Highest Spending */}
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow">
+          <h3 className="text-lg font-semibold mb-3 dark:text-white">
+            Highest Spending Category
+          </h3>
+          <p className="text-xl font-bold">
+            {highestCategory?.name}
+          </p>
+          <p className="text-red-500 mt-2">
+            ₹{highestCategory?.value}
           </p>
         </div>
 
-        {/* Card 4 */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md">
-          <h3 className="text-gray-500 text-xl">This Month Expense</h3>
-          <p className="text-lg font-bold text-red-500 mt-2">
-            ₹5400
+        {/* Monthly Summary */}
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow">
+          <h3 className="text-lg font-semibold mb-3 dark:text-white">
+            Monthly Summary
+          </h3>
+          <p className="text-sm">Income: ₹{income}</p>
+          <p className="text-sm">Expense: ₹{expense}</p>
+          <p className="text-sm font-semibold mt-2">
+            Net: ₹{savings}
           </p>
         </div>
 
-        {/* Card 5 */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md col-span-1 sm:col-span-2 lg:col-span-1">
-          <h3 className="text-gray-500 text-xl">Warning</h3>
-          <p className="text-yellow-500 mt-2 text-sm">
-            ⚠️ Spending is high this month
+        {/* Warning */}
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow lg:col-span-2">
+          <h3 className="text-lg font-semibold mb-3 dark:text-white">
+            Financial Status
+          </h3>
+
+          <p
+            className={`text-sm ${
+              warning ? "text-red-500" : "text-green-500"
+            }`}
+          >
+            {warning
+              ? "⚠️ Your expenses are higher than income"
+              : "✅ You are managing your finances well"}
           </p>
         </div>
 
@@ -53,4 +130,4 @@ function Insights() {
   );
 }
 
-export default Insights;
+export default InsightsPage;
