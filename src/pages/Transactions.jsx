@@ -2,7 +2,7 @@ import React,  { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import Header from '../components/Header'
 import { useState } from 'react'
-import { debounce } from '../components/debounce'
+import { debounce } from '../data/debounce'
 import { useMemo } from "react";
 export default function Transactions() {
   const { transactions } = useContext(AppContext)

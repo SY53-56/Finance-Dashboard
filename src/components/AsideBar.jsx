@@ -1,19 +1,29 @@
 import React from 'react'
 import { Link,  } from 'react-router-dom'
-import { Home, Receipt, Moon, Sun, FormIcon } from 'lucide-react'
+import { Home, Receipt, MoonIcon, Sun, FormIcon, SunIcon } from 'lucide-react'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { AppContext } from '../context/AppContext'
-
+import { } from 'lucide-react'
 export default function AsideBar() {
    const {role} = useContext(AppContext)
+   const {handleTheme ,theme}= useContext(ThemeContext)
   return (
     <aside className="w-64 min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6 shadow-xl">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
           Finance Dashboard
         </h1>
-      
+        <button
+      onClick={handleTheme}
+      className="p-2 rounded-full flex lg:hidden transition "
+    >
+      {theme === "light" ? (
+        <MoonIcon className="text-white" />
+      ) : (
+        <SunIcon className="text-yellow-400" />
+      )}
+    </button>
       </div>
 
       <div className="flex flex-col gap-2">
