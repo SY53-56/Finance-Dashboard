@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 export default function Layout() {
   return (
-    <div style={{ display: "flex" }}>
+    <div className='flex gap-5' style={{ display: "flex" }}>
       <AsideBar />
       <div style={{ flex: 1 }}>
         <Outlet />
