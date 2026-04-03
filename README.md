@@ -1,16 +1,98 @@
-# React + Vite
+# Finance Dashboard UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Frontend Developer Intern Assignment**  
 
-Currently, two official plugins are available:
+A clean and interactive finance dashboard built with **React** and **Tailwind CSS** to track and visualize financial activity.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🔗 Live Demo
+[View Live Demo]([https://your-deployment-link.com](https://finance-dashboard-green-nu.vercel.app/))  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*(Replace with your deployed URL, e.g., Vercel or Netlify)*
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📝 Project Overview
+
+This project simulates a **finance dashboard** for users to track their financial activity. It demonstrates:
+
+- Dashboard overview with key metrics.
+- Transaction management.
+- Insights and visualizations.
+- Light/Dark mode toggle.
+- Simulated role-based UI (viewer/admin).
+
+The goal is to showcase **frontend development skills**, component structuring, state management, and UI design.
+
+---
+
+## ⚡ Features
+
+### Dashboard Overview
+- Summary cards:
+  - **Total Balance**
+  - **Total Income**
+  - **Total Expenses**
+- Time-based visualization (Line Chart: Expense/Income trends)
+- Category-based visualization (Pie Chart: Spending breakdown)
+
+### Transactions
+- Lists all transactions with:
+  - Date
+  - Category
+  - Type (Income/Expense)
+  - Amount
+- Supports basic filtering by type.
+
+### Role-Based UI
+- **Viewer:** Read-only access
+- **Admin:** Can add transactions (frontend simulation)
+- Role switcher available in UI
+
+### Insights Section
+- Current month summary (Income, Expense, Savings)
+- Highest spending category
+- Financial warning if expenses exceed income
+
+### Theme Toggle
+- Switch between **Light** and **Dark** mode using a button.
+- UI responds to theme changes dynamically.
+
+### State Management
+- `AppContext` for transactions and role
+- `ThemeContext` for light/dark theme
+
+---
+
+## 📂 Project Structure
+finance-dashboard/
+├─ src/
+│ ├─ components/ # Reusable UI components
+│ ├─ context/ # Theme and App contexts
+│ ├─ pages/ # Dashboard, Transactions, Insights
+│ ├─ Layout.jsx # Layout with sidebar and main content
+│ └─ App.jsx # Routing and main component
+├─ index.css # Tailwind CSS imports
+├─ main.jsx # Entry point
+├─ tailwind.config.js # Tailwind configuration
+└─ package.json
+
+## 🛠 Technologies Used
+
+- **React** – Component-based frontend framework
+- **Tailwind CSS** – Utility-first styling
+- **Recharts** – Chart visualizations (Line, Pie)
+- **React Context API** – State management
+- **React Router DOM** – Client-side routing
+- **Lucide Icons** – Icons for dashboard
+
+---
+
+## 🚀 Installation & Running Locally
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/finance-dashboard.git
+cd finance-dashboard
