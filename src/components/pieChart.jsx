@@ -1,19 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from "recharts";
 import { AppContext } from "../context/AppContext";
+import Button from "./Button";
 
 function PieChartBox() {
   const { transactions } = useContext(AppContext);
-
+const [view, setView] = useState("income")
   const COLORS = ["#4F46E5", "#22C55E", "#F59E0B", "#EF4444", "#06B6D4"];
 
   // ✅ Filter only expenses
+  const filterTransaction = transactions.filter(item => view==="income"? item.type ==="expense": item.type==="income")
   const data = Object.values(
-    transactions
-      .filter(
-        (item) =>
-          item.category !== "Salary" && item.category !== "Freelance"
-      )
+  filterTransaction 
+      
       .reduce((acc, item) => {
         if (!acc[item.category]) {
           acc[item.category] = { name: item.category, value: 0 };
@@ -28,6 +27,14 @@ function PieChartBox() {
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Expenses</h2>
+        <Button name="income"  onClick={() => setView("income")}  className={`px-3 py-1 rounded ${
+              view === "income" ? "bg-green-500 text-white" : "bg-gray-200"
+            }`}>
+
+        </Button>
+        <Button name="expense" onClick={()=> setView("expense")}  className={`px-3 py-1 rounded ${
+              view === "expense" ? "bg-green-500 text-white" : "bg-gray-200"
+            }`}/>
         <span className="text-sm text-gray-400">This Month</span>
       </div>
 
