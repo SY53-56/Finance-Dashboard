@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AsideBar from './components/AsideBar'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 export default function Layout() {
   const [open, setOpen] = useState(false)
-
+  const loaction = useLocation()
+ useEffect(()=>{
+  if(loaction.pathname){
+    setOpen(false)
+  }
+ },[loaction.pathname])
   return (
     <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
       

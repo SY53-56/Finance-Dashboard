@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Home, Receipt, Moon, Sun } from 'lucide-react'
+import { Home, Receipt, Moon, Sun, FormIcon } from 'lucide-react'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
+import { AppContext } from '../context/AppContext'
 
 export default function AsideBar() {
- 
+   const {role} = useContext(AppContext)
   return (
     <aside className="w-64 min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6 shadow-xl">
       <div className="flex justify-between items-center mb-8">
@@ -37,6 +38,24 @@ export default function AsideBar() {
         >
           <Receipt className="w-5 h-5" />
           Transactions
+        </Link>
+     {role ==="admin" &&   <Link  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+            location.pathname === '/add'
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'hover:bg-gray-700 text-gray-300 hover:text-white'
+          }`} to="add"> <FormIcon/>
+        AddTransaction
+        </Link>}
+         <Link
+          to="/insight"
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+            location.pathname === '/insight'
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'hover:bg-gray-700 text-gray-300 hover:text-white'
+          }`}
+        >
+          <Receipt className="w-5 h-5" />
+          Insight
         </Link>
       </div>
     </aside>
