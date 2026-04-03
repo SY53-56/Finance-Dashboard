@@ -1,24 +1,24 @@
 import React from 'react'
-import AsideBar from '../components/AsideBar'
-import Box from '../components/DashboardCards'
 import DashboardCards from '../components/DashboardCards'
 import LineChart from '../components/LineChart'
 import Header from '../components/Header'
 import TransactionsTable from '../components/TransactionsTable'
 import PieChartBox from '../components/pieChart'
+
 export default function Home() {
   return (
-    <div className='px-10 py-10'>
+    <div className='px-4 md:px-10 py-6 md:py-10'>
        <Header/>
-   <div className='flex gap-4 mt-5'>
-   <DashboardCards/>
-   
-   </div>
-  <div className='flex gap-10'>
-     <LineChart/>
-     <PieChartBox/>
-  </div>
-   <TransactionsTable/>
+       <div className='mt-6 md:mt-8'>
+         <DashboardCards/>
+       </div>
+       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 mt-6 md:mt-8'>
+         <LineChart/>
+         <PieChartBox/>
+       </div>
+       <div className='mt-6 md:mt-8'>
+         <TransactionsTable/>
+       </div>
     </div>
   )
 }

@@ -1,41 +1,55 @@
 import { useContext, useState } from "react";
 import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from "recharts";
 import { AppContext } from "../context/AppContext";
-import Button from "./Button";
 
 function PieChartBox() {
   const { transactions } = useContext(AppContext);
-const [view, setView] = useState("income")
+  const [view, setView] = useState("expense");
   const COLORS = ["#4F46E5", "#22C55E", "#F59E0B", "#EF4444", "#06B6D4"];
 
-  // ✅ Filter only expenses
-  const filterTransaction = transactions.filter(item => view==="income"? item.type ==="expense": item.type==="income")
+  // ✅ Filter transactions based on view
+  const filteredTransactions = transactions.filter(item => item.type === view);
+
   const data = Object.values(
-  filterTransaction 
-      
-      .reduce((acc, item) => {
-        if (!acc[item.category]) {
-          acc[item.category] = { name: item.category, value: 0 };
-        }
-        acc[item.category].value += item.amount;
-        return acc;
-      }, {})
+    filteredTransactions.reduce((acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = { name: item.category, value: 0 };
+      }
+      acc[item.category].value += item.amount;
+      return acc;
+    }, {})
   );
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-5 w-full max-w-md">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-5 w-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Expenses</h2>
-        <Button name="income"  onClick={() => setView("income")}  className={`px-3 py-1 rounded ${
-              view === "income" ? "bg-green-500 text-white" : "bg-gray-200"
-            }`}>
+        <h2 className="text-lg font-semibold dark:text-white">
+          {view === "expense" ? "Expense Breakdown" : "Income Breakdown"}
+        </h2>
 
-        </Button>
-        <Button name="expense" onClick={()=> setView("expense")}  className={`px-3 py-1 rounded ${
-              view === "expense" ? "bg-green-500 text-white" : "bg-gray-200"
-            }`}/>
-        <span className="text-sm text-gray-400">This Month</span>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setView("expense")}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+              view === "expense"
+                ? "bg-red-500 text-white"
+                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+            }`}
+          >
+            Expense
+          </button>
+          <button
+            onClick={() => setView("income")}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+              view === "income"
+                ? "bg-green-500 text-white"
+                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+            }`}
+          >
+            Income
+          </button>
+        </div>
       </div>
 
       {/* Chart */}
@@ -46,12 +60,10 @@ const [view, setView] = useState("income")
               data={data}
               dataKey="value"
               nameKey="name"
-              innerRadius={50}   // 🔥 donut style
+              innerRadius={50}
               outerRadius={90}
               paddingAngle={3}
-              label={({ percent }) =>
-                `${(percent * 100).toFixed(0)}%`
-              }
+              label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
             >
               {data.map((entry, index) => (
                 <Cell
@@ -60,8 +72,7 @@ const [view, setView] = useState("income")
                 />
               ))}
             </Pie>
-
-            <Tooltip />
+            <Tooltip formatter={(value) => [`₹${value.toLocaleString()}`, 'Amount']} />
           </PieChart>
         </ResponsiveContainer>
       </div>
@@ -77,10 +88,10 @@ const [view, setView] = useState("income")
                   backgroundColor: COLORS[index % COLORS.length],
                 }}
               ></span>
-              <span className="text-sm">{item.name}</span>
+              <span className="text-sm dark:text-gray-300">{item.name}</span>
             </div>
-            <span className="text-sm font-semibold">
-              ₹{item.value}
+            <span className="text-sm font-semibold dark:text-white">
+              ₹{item.value.toLocaleString()}
             </span>
           </div>
         ))}
