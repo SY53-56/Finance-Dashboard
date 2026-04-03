@@ -7,9 +7,9 @@ A clean and interactive finance dashboard built with **React** and **Tailwind CS
 ---
 
 ## 🔗 Live Demo
-[View Live Demo](["https://your-deployment-link.com](https://finance-dashboard-green-nu.vercel.app/"))  
+[View Live Demo]()  
 
-
+["https://your-deployment-link.com](https://finance-dashboard-green-nu.vercel.app/")]
 ---
 
 ## 📝 Project Overview
